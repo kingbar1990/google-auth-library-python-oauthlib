@@ -349,10 +349,14 @@ class InstalledAppFlow(Flow):
     _DEFAULT_WEB_SUCCESS_MESSAGE = (
         'The authentication flow has completed, you may close this window.')
 
+    def get_auth_url(self, **kwargs):
+        auth_url, _ = self.authorization_url(**kwargs)
+        return auth_url
+
     def run_console(
             self,
             authorization_prompt_message=_DEFAULT_AUTH_PROMPT_MESSAGE,
-            authorization_code_message=_DEFAULT_AUTH_CODE_MESSAGE,
+            authorization_code_message=_DEFAULT_AUTH_CODE_MESSAGE, auth_url=None,
             **kwargs):
         """Run the flow using the console strategy.
 
@@ -377,11 +381,11 @@ class InstalledAppFlow(Flow):
 
         self.redirect_uri = self._OOB_REDIRECT_URI
 
-        auth_url, _ = self.authorization_url(**kwargs)
+        # auth_url, _ = self.authorization_url(**kwargs)
 
-        print(authorization_prompt_message.format(url=auth_url))
-
-        code = input(authorization_code_message)
+        # print(authorization_prompt_message.format(url=auth_url))
+        print('AUTH URL GOT')
+        code = authorization_code_message
 
         self.fetch_token(code=code)
 
@@ -449,6 +453,7 @@ class _WSGIRequestHandler(wsgiref.simple_server.WSGIRequestHandler):
 
     Uses a named logger instead of printing to stderr.
     """
+
     def log_message(self, format, *args):
         # pylint: disable=redefined-builtin
         # (format is the argument name defined in the superclass.)

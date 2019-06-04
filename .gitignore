@@ -28,8 +28,9 @@ tests/data/key.json
 tests/data/key.p12
 tests/data/user-key.json
 
-# PyCharm configuration:
+# PyCharm and VSCode configuration:
 .idea
+.vscode/
 
 # Generated files
 pylintrc
