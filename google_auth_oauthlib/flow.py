@@ -350,6 +350,9 @@ class InstalledAppFlow(Flow):
         'The authentication flow has completed, you may close this window.')
 
     def get_auth_url(self, **kwargs):
+        kwargs.setdefault('prompt', 'consent')
+
+        self.redirect_uri = self._OOB_REDIRECT_URI
         auth_url, _ = self.authorization_url(**kwargs)
         return auth_url
 
